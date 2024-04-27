@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "training")
 public class Training extends BaseEntity {
@@ -22,6 +21,15 @@ public class Training extends BaseEntity {
     private String title;
     @Column(name = "description", nullable = false)
     private String description;
-    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     List<Exercise> exercises = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Training{" +
+                "trainingId=" + trainingId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                super.toString();
+    }
 }

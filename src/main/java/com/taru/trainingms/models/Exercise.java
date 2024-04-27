@@ -7,7 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "exercise")
 public class Exercise extends BaseEntity{
@@ -29,7 +28,22 @@ public class Exercise extends BaseEntity{
     private Integer durationTime;
     @Column(name = "rest_time")
     private Integer restTime;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "training_id")
     private Training training;
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "exerciseId=" + exerciseId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", repetitionsCount=" + repetitionsCount +
+                ", approachesCount=" + approachesCount +
+                ", weight=" + weight +
+                ", durationTime=" + durationTime +
+                ", restTime=" + restTime +
+                ", trainingId=" + (training != null ? training.getTrainingId() : null) +
+                super.toString();
+    }
 }
